@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: Deploy Static HTML/JS to Pages
 
 on:
   push:
@@ -15,7 +15,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  build-and-deploy:
+  deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -24,26 +24,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: 'npm' # Use 'yarn' or 'pnpm' here if you use those package managers
-
-      - name: Install dependencies
-        run: npm install # Change to 'npm ci' if you have a package-lock.json
-
-      - name: Build project
-        run: npm run build
-
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # IMPORTANT: Change "./dist" to match your build tool's folder ("./build" or "./out")
-          path: "./dist" 
+          # If your index.html is in a subfolder like 'public' or 'src', change "." to "./public"
+          path: "." 
 
       - name: Deploy to GitHub Pages
         id: deployment
