@@ -1,0 +1,49 @@
+{
+  "entities": {
+    "Film": {
+      "title": "Film",
+      "description": "A film record.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "tagline": { "type": "string" },
+        "category": { "type": "string" },
+        "tags": { "type": "array", "items": { "type": "string" } },
+        "releaseDate": { "type": "string" },
+        "rating": { "type": "string" },
+        "runtime": { "type": "string" },
+        "image": { "type": "string" },
+        "youtubeId": { "type": "string" },
+        "description": { "type": "string" },
+        "directorNote": { "type": "string" },
+        "awards": { "type": "array", "items": { "type": "string" } },
+        "createdAt": { "type": "number" }
+      },
+      "required": ["title", "category", "youtubeId"]
+    },
+    "Blog": {
+      "title": "Blog",
+      "description": "A blog post.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "date": { "type": "string" },
+        "image": { "type": "string" },
+        "tags": { "type": "array", "items": { "type": "string" } },
+        "content": { "type": "array", "items": { "type": "string" } },
+        "createdAt": { "type": "number" }
+      },
+      "required": ["title", "date"]
+    }
+  },
+  "firestore": {
+    "/films/{filmId}": {
+      "schema": { "$ref": "#/entities/Film" },
+      "description": "Stores films."
+    },
+    "/blogs/{blogId}": {
+      "schema": { "$ref": "#/entities/Blog" },
+      "description": "Stores blog posts."
+    }
+  }
+}

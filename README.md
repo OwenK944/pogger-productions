@@ -1,11 +1,7 @@
-<div align="center">
+# Pogger Productions Admin Setup
 
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-
-  <h1>Built with AI Studio</h2>
-
-  <p>The fastest path from prompt to production with Gemini.</p>
-
-  <a href="https://aistudio.google.com/apps">Start building</a>
-
-</div>
+To access the new Admin Dashboard and start uploading films:
+1. Open the Firebase Console for your project (`gen-lang-client-0107832514`).
+2. Go to **Authentication** > **Sign-in method** and enable **Email/Password**.
+3. Go to the **Users** tab and click **Add user** to create your admin email and password.
+4. On your website, click the **Admin** link in the navigation menu, log in, and start uploading!
