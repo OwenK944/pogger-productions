@@ -1,26 +1,50 @@
-name: Deploy Vite App to GitHub Pages
+name: Deploy to GitHub Pages
+
 on:
   push:
-    branches: [main, master]
+    branches:
+      - main # Change to master if your default branch uses that name
+
 permissions:
   contents: read
   pages: write
   id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
 jobs:
-  deploy:
+  build-and-deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: npm ci || npm install
-      - uses: actions/configure-pages@v4
-      - uses: actions/upload-pages-artifact@v3
+          cache: 'npm' # Use 'yarn' or 'pnpm' here if you use those package managers
+
+      - name: Install dependencies
+        run: npm install # Change to 'npm ci' if you have a package-lock.json
+
+      - name: Build project
+        run: npm run build
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          path: './dist'
-      - id: deployment
+          # IMPORTANT: Change "./dist" to match your build tool's folder ("./build" or "./out")
+          path: "./dist" 
+
+      - name: Deploy to GitHub Pages
+        id: deployment
         uses: actions/deploy-pages@v4
